@@ -11,7 +11,7 @@ variable "instance_type" {
   type    = string
   validation {
     condition     = contains(["t3.micro", "t3.medium", "t3.small"], var.instance_type)
-    error_message = "instance_type can only be one of t3.micro, t3.medium, t3.small"
+    error_message = "instance_type can only be one of ['t3.micro', 't3.medium', 't3.small']"
   }
 }
 
