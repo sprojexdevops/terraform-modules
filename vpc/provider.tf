@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket         = "sprojex-remote-state"
-    key            = "remote-state-vpc"
+    key            = "expense-vpc"
     region         = "us-east-1"
     dynamodb_table = "tf-state-locking"
   }
