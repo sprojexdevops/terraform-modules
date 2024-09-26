@@ -1,5 +1,5 @@
 module "vpc" {
-  source                = "git::https://github.com/sprojexdevops/terraform-modules//modules/vpc?ref=main"
+  source                = "../../modules/vpc"
   project_name          = var.project_name
   environment           = var.environment
   vpc_cidr              = var.vpc_cidr
