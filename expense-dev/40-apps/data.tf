@@ -30,21 +30,21 @@ data "aws_ssm_parameter" "database_subnet_ids" {
 
 data "aws_ami" "ami" {
 
-	most_recent      = true
-	owners = ["973714476881"]
-	
-	filter {
-		name   = "name"
-		values = ["RHEL-9-DevOps-Practice"]
-	}
-	
-	filter {
-		name   = "root-device-type"
-		values = ["ebs"]
-	}
+  most_recent = true
+  owners      = ["973714476881"]
 
-    filter {
-        name   = "virtualization-type"
-        values = ["hvm"]
-    }
+  filter {
+    name   = "name"
+    values = ["RHEL-9-DevOps-Practice"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
 }

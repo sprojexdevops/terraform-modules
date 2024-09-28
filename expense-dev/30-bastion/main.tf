@@ -1,9 +1,9 @@
 # source --> terraform open source modules in github (no URL required for these)
 
 module "bastion" {
-  source  = "terraform-aws-modules/ec2-instance/aws"
-  
-  ami = data.aws_ami.ami.id
+  source = "terraform-aws-modules/ec2-instance/aws"
+
+  ami  = data.aws_ami.ami.id
   name = local.resource_name
 
   instance_type          = "t3.micro"
@@ -14,7 +14,7 @@ module "bastion" {
     var.common_tags,
     var.bastion_tags,
     {
-        Name = local.resource_name
+      Name = local.resource_name
     }
   )
 }
