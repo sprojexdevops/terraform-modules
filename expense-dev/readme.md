@@ -1,1 +1,1 @@
-![alt text](images/expense-tf-dev.svg)
+![alt text](images/expense-dev.svg)
