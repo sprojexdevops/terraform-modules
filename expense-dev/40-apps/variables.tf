@@ -44,3 +44,13 @@ variable "ansible_tags" {
     Component = "ansible"
   }
 }
+
+variable "zone_name" {
+  type = string
+  default = "sprojex.in"
+}
+
+variable "backend_instnace_names" {
+  type = list(string)
+  default = ["backend", "backend2"]
+}

@@ -20,11 +20,11 @@ module "mysql" {
 }
 
 module "backend" {
-  count  = ["backend", "backend-2"]
+  count  = length(var.backend_instnace_names)
   source = "terraform-aws-modules/ec2-instance/aws"
 
   ami  = data.aws_ami.ami.id
-  name = "${local.resource_name}-${[count.index]}"
+  name = "${local.resource_name}-${var.backend_instnace_names[count.index]}"
 
   instance_type          = "t3.micro"
   vpc_security_group_ids = [local.backend_sg_id]
@@ -34,7 +34,7 @@ module "backend" {
     var.common_tags,
     var.mysql_tags,
     {
-      Name = "${local.resource_name}-${[count.index]}"
+      Name = "${local.resource_name}-${var.backend_instnace_names[count.index]}"
     }
   )
 }
@@ -67,7 +67,7 @@ module "ansible" {
   instance_type          = "t3.micro"
   vpc_security_group_ids = [local.ansible_sg_id]
   subnet_id              = local.public_subnet_id
-  user_data              = file(expense.sh)
+  user_data              = file("expense.sh")
 
   tags = merge(
     var.common_tags,
@@ -76,5 +76,54 @@ module "ansible" {
       Name = "${local.resource_name}-ansible"
     }
   )
+}
+
+module "records" {
+  source  = "terraform-aws-modules/route53/aws//modules/records"
+
+  zone_name = var.zone_name
+
+  records = [
+    {
+      name    = "mysql"
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.mysql.private_ip
+      ]
+    },
+    {
+      name    = var.backend_instnace_names[0]
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.backend[0].private_ip
+      ]
+    },
+    {
+      name    = var.backend_instnace_names[1]
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.backend[1].private_ip
+      ]
+    },
+    {
+      name    = "frontend"
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.frontend.private_ip
+      ]
+    },
+    {
+      name    = ""
+      type    = "A"
+      ttl     = 1
+      records = [
+        module.frontend.public_ip
+      ]
+    }
+  ]
 }
 
