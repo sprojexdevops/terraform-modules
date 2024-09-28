@@ -1,5 +1,5 @@
 module "vpc" {
-  source                = "../../modules/vpc"
+  source                = "../../modules/vpc"     # source is a custom module
   project_name          = var.project_name
   environment           = var.environment
   vpc_cidr              = var.vpc_cidr

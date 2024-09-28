@@ -1,3 +1,5 @@
+# source is custom module
+
 module "mysql_sg" {
   source       = "../../modules/sg"
   project_name = var.project_name
