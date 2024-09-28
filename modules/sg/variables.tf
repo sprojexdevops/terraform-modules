@@ -7,7 +7,7 @@ variable "environment" {
 }
 
 variable "sg_name" {
-  type = list(string)
+  type = string
 }
 
 variable "vpc_id" {
@@ -15,11 +15,11 @@ variable "vpc_id" {
 }
 
 variable "common_tags" {
-  type    = map(any)
+  type    = map
   default = {}
 }
 
 variable "sg_tags" {
-  type    = map(any)
+  type    = map
   default = {}
 }

@@ -1,6 +1,5 @@
-resource "aws_security_group" "security_groups" {
-  count  = length(var.sg_name)
-  name   = "${local.sg_final_name}-${var.sg_name[count.index]}"
+resource "aws_security_group" "main" {
+  name   = local.sg_final_name
   vpc_id = var.vpc_id
 
   egress {
@@ -14,7 +13,7 @@ resource "aws_security_group" "security_groups" {
     var.common_tags,
     var.sg_tags,
     {
-      name = "${local.sg_final_name}-${var.sg_name[count.index]}"
+      name = local.sg_final_name
     }
   )
 }
